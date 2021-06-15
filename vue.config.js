@@ -1,17 +1,17 @@
-const path = require("path");
+const path = require('path')
 
-const vueSrc = "./src";
+const vueSrc = './src'
 
 module.exports = {
-    runtimeCompiler: true,
-    css: {
-        modules: true
-    },
-    configureWebpack: {
-        resolve: {
-            alias: {
-                '@': path.resolve(__dirname, 'src/components')
-            }
-        }
+  runtimeCompiler: true,
+  css: {
+    modules: true
+  },
+  configureWebpack: {
+    resolve: {
+      alias: {
+        '@': path.resolve(__dirname, 'src/components')
+      }
     }
+  }
 }
