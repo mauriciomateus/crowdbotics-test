@@ -91,6 +91,10 @@ export default {
     buttonText: {
       type: String,
       default: 'Submit'
+    },
+    redirectRouteName: {
+      type: String,
+      default: String
     }
   },
   data () {
@@ -107,14 +111,20 @@ export default {
         .then(response => {
           this.sending = false
           console.log(response)
+          this.handleRedirect()
         })
         .catch(error => {
           this.errors = error.response.data
           this.sending = false
+          // Temporary just to test redirect without creating an account
+          // this.handleRedirect()
         })
     },
     clearErrors () {
       this.errors = {}
+    },
+    handleRedirect () {
+      this.$router.push({ name: this.redirectRouteName })
     }
   }
 }

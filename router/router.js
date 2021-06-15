@@ -4,6 +4,7 @@ import NotFound from '../src/components/NotFound'
 import Register from '../src/components/Register'
 import PasswordReset from '../src/components/PasswordReset'
 import Login from '../src/components/Login'
+import AppIndex from '../src/components/AppIndex'
 
 Vue.use(VueRouter)
 const routes = [
@@ -21,6 +22,14 @@ const routes = [
     component: Login,
     meta: {
       title: 'Login'
+    }
+  },
+  {
+    name: 'Dashboard.AppsIndex',
+    path: '/dashboard/apps',
+    component: AppIndex,
+    meta: {
+      title: 'Your Apps'
     }
   },
   {

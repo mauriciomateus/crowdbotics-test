@@ -6,6 +6,7 @@
       <AuthForm
         end-point="/rest-auth/login/"
         button-text="Login"
+        redirect-route-name="Dashboard.AppsIndex"
       />
       <template v-slot:footer>
         <p>

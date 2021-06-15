@@ -13,6 +13,7 @@
           <router-link
             :to="{name:'Login'}"
             class="text-brand-color font-semibold hover:underline"
+            redirect-route-name="Login"
           >
             Login now
           </router-link>
