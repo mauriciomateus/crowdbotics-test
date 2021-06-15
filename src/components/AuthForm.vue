@@ -111,7 +111,7 @@ export default {
         .then(response => {
           this.sending = false
           console.log(response)
-          this.handleRedirect()
+          this.handleRedirect(response)
         })
         .catch(error => {
           this.errors = error.response.data
@@ -123,7 +123,10 @@ export default {
     clearErrors () {
       this.errors = {}
     },
-    handleRedirect () {
+    handleRedirect (response) {
+      const { data } = response
+      const accessToken = data && data.key ? data.key : null
+      localStorage.setItem('accessToken', accessToken)
       this.$router.push({ name: this.redirectRouteName })
     }
   }
