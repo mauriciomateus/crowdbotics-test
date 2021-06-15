@@ -8,7 +8,10 @@ module.exports = {
       }),
       backgroundColor: theme => ({
         'brand-bg': '#727cf5'
-      })
+      }),
+      textColor: {
+        'brand-color': '#727cf5'
+      }
     }
   },
   variants: {
