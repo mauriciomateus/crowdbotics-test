@@ -11,6 +11,13 @@
           class="block h-full w-auto"
         >
       </router-link>
+      <button
+        type="button"
+        title="Log Out"
+        @click="logOut"
+      >
+        <i class="fas fa-power-off mr-1 text-white" />
+      </button>
     </div>
     <div class="p-4">
       <slot />
@@ -20,7 +27,18 @@
 
 <script>
 // @vue/component
-export default {
+import axios from 'axios'
 
+export default {
+  methods: {
+    logOut () {
+      axios.post('/rest-auth/logout/')
+        .then(response => {
+          localStorage.removeItem('accessToken')
+          this.$router.push({ name: 'Login' })
+        })
+        .catch(error => console.log(error.response.data))
+    }
+  }
 }
 </script>
