@@ -10,8 +10,8 @@
 export default {
   props: {
     error: {
-      type: String,
-      default: String
+      type: Array,
+      default: Array
     }
   }
 }
