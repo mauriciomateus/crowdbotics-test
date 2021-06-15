@@ -9,7 +9,7 @@ import AppIndex from '../src/components/AppIndex'
 Vue.use(VueRouter)
 const routes = [
   {
-    path: '/rest-auth/register',
+    path: '/register',
     name: 'Register',
     component: Register,
     meta: {
@@ -17,7 +17,7 @@ const routes = [
     }
   },
   {
-    path: '/rest-auth/login',
+    path: '/login',
     name: 'Login',
     component: Login,
     meta: {
