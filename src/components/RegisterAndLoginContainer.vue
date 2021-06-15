@@ -4,7 +4,7 @@
       {{ title }}
     </h2>
     <slot />
-    <footer class="mt-auto">
+    <footer class="mt-auto w-full">
       <slot name="footer" />
     </footer>
   </div>

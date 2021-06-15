@@ -5,6 +5,7 @@ import Register from '../src/components/Register'
 import PasswordReset from '../src/components/PasswordReset'
 import Login from '../src/components/Login'
 import AppIndex from '../src/components/AppIndex'
+import PasswordResetMessage from '../src/components/PasswordResetMessage'
 
 Vue.use(VueRouter)
 const routes = [
@@ -33,11 +34,18 @@ const routes = [
     }
   },
   {
-    path: '/rest-auth/password-reset',
+    path: '/password-reset',
     name: 'PasswordReset',
     component: PasswordReset,
     meta: {
       title: 'Reset Your Password'
+    }
+  }, {
+    path: '/password-reset-done',
+    name: 'PasswordResetMessage',
+    component: PasswordResetMessage,
+    meta: {
+      title: 'Check your email'
     }
   },
   {

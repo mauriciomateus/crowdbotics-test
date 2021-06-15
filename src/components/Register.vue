@@ -6,6 +6,7 @@
       <AuthForm
         end-point="/rest-auth/registration/"
         button-text="Sign Up"
+        :form-fields="['all']"
       />
       <template v-slot:footer>
         <p>

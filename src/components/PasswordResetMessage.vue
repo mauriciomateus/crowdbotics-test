@@ -1,22 +1,22 @@
 <template>
   <AuthLayout>
     <RegisterAndLoginContainer
-      title="Reset your password"
+      title="Check your email"
     >
-      <AuthForm
-        end-point="/rest-auth/password/reset/"
-        button-text="Reset Password"
-        redirect-route-name="PasswordResetMessage"
-      />
+      <p class="text-md mt-5 text-center">
+        We have sent you an e-mail. Please <a
+          href="mailto:support@crowdbotics.com"
+          class="text-brand-color font-bold hover:underline"
+        >contact us</a> if you do not receive it within a few minutes.
+      </p>
       <template v-slot:footer>
-        <p>
-          Already have an account?
+        <p class="text-center">
           <router-link
             :to="{name:'Login'}"
             class="text-brand-color font-semibold hover:underline"
             redirect-route-name="Login"
           >
-            Login now
+            <i class="fas fa-arrow-left mr-2" /> Go Back to Login
           </router-link>
         </p>
       </template>
@@ -32,7 +32,6 @@ import RegisterAndLoginContainer from './RegisterAndLoginContainer'
 
 export default {
   components: {
-    AuthForm,
     AuthLayout,
     RegisterAndLoginContainer
   }

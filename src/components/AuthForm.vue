@@ -18,7 +18,10 @@
       >
       <AuthError :error="errors['email']" />
     </div>
-    <div class="w-full mt-3">
+    <div
+      v-if="showField('password')"
+      class="w-full mt-3"
+    >
       <label
         for="password"
         class="block w-full text-gray-700"
@@ -32,19 +35,7 @@
       >
       <AuthError :error="errors['password']" />
     </div>
-    <!--        <div class="w-full mt-3">-->
-    <!--          <label-->
-    <!--            for="password_confirm"-->
-    <!--            class="block w-full text-gray-700"-->
-    <!--          >Repeat Password*</label>-->
-    <!--          <input-->
-    <!--            id="password_confirm"-->
-    <!--            type="password"-->
-    <!--            name="password_confirm"-->
-    <!--            class="w-full rounded-lg border-gray-500"-->
-    <!--          >-->
-    <!--          <AuthError :error="errors['password_confirm']" />-->
-    <!--        </div>-->
+
     <div class="flex justify-center w-full">
       <button
         type="submit"
@@ -58,7 +49,7 @@
       </button>
     </div>
     <div
-      v-if="errors['non_field_errors']"
+      v-if="nonFieldErrors"
       class="flex absolute bottom-0 bg-red-500 text-white rounded-sm flex flex-col"
     >
       <div class="flex justify-end">
@@ -68,7 +59,7 @@
         />
       </div>
       <div class="p-2">
-        {{ errors['non_field_errors'][0] }}
+        {{ nonFieldErrors }}
       </div>
     </div>
   </form>
@@ -95,6 +86,10 @@ export default {
     redirectRouteName: {
       type: String,
       default: String
+    },
+    formFields: {
+      type: Array,
+      default: Array
     }
   },
   data () {
@@ -102,6 +97,19 @@ export default {
       form: {},
       errors: {},
       sending: false
+    }
+  },
+  computed: {
+    nonFieldErrors () {
+      const hasNonFieldErrors = Object.keys(this.errors).includes('non_field_errors')
+      const hasDetailError = Object.keys(this.errors).includes('detail')
+      if (hasNonFieldErrors) {
+        return this.errors.non_field_errors[0]
+      }
+      if (hasDetailError) {
+        return this.errors.detail
+      }
+      return ''
     }
   },
   methods: {
@@ -128,6 +136,12 @@ export default {
       const accessToken = data && data.key ? data.key : null
       localStorage.setItem('accessToken', accessToken)
       this.$router.push({ name: this.redirectRouteName })
+    },
+    showField (field) {
+      if (this.formFields.includes('all')) {
+        return true
+      }
+      return this.formFields.includes(field)
     }
   }
 }
