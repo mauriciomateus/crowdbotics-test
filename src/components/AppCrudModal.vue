@@ -15,7 +15,21 @@
       <form @submit.prevent="handleForm">
         <BackendFormField
           field-label="App Name *"
-          field-name="app_name"
+          field-name="name"
+          form-object-name="appFormData"
+          error-object-name="appCrudErrors"
+        />
+        <BackendFormField
+          field-label="Type *"
+          field-name="type"
+          form-object-name="appFormData"
+          error-object-name="appCrudErrors"
+        />
+        <BackendFormField
+          field-label="Framework *"
+          field-name="framework"
+          form-object-name="appFormData"
+          error-object-name="appCrudErrors"
         />
         <div>
           <button

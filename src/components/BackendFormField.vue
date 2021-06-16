@@ -6,19 +6,24 @@
     >{{ fieldLabel }}</label>
     <input
       :id="fieldName"
-      v-model="input"
+      v-model="fieldValue"
       :type="fieldType"
       :name="fieldName"
       class="w-full rounded-lg border-gray-500 mt-2"
       :placeholder="fieldLabel"
+      @input="updateStoreFormObject"
     >
-    <BackendError />
+    <BackendError
+      error-object-name="appFormCrudErrors"
+      :error-field-name="fieldName"
+    />
   </div>
 </template>
 
 <script>
 // @vue/component
 import BackendError from './BackendError'
+import { mapMutations } from 'vuex/dist/vuex.mjs'
 
 export default {
   components: {
@@ -36,11 +41,35 @@ export default {
     fieldType: {
       type: String,
       default: 'text'
+    },
+    appCrudErrors: {
+      type: Object,
+      default: Object
+    },
+    formObjectName: {
+      type: String,
+      default: String
     }
   },
   data () {
     return {
-      input: ''
+      fieldValue: ''
+    }
+  },
+  computed: {
+    fieldError () {
+      return this.appCrudErrors[this.fieldName]
+    }
+  },
+  methods: {
+    ...mapMutations(['setCrudFormData']),
+    updateStoreFormObject () {
+      this.setCrudFormData({
+        formObjectName: this.formObjectName,
+        formFieldName: this.fieldName,
+        fieldValue: this.fieldValue
+      }
+      )
     }
   }
 }
