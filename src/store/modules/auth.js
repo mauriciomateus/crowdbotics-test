@@ -49,6 +49,7 @@ export default {
     },
     login (context) {
       context.commit('clearFormErrors')
+      delete axios.defaults.headers.common.Authorization // Do not send header when password is sent
       axios.post('/rest-auth/login/', context.state.formData)
         .then(response => {
           console.log(response.data)
@@ -61,6 +62,24 @@ export default {
           context.commit('setFormErrors', error.response.data)
           context.commit('formIsNotSending')
         })
+    },
+    logOut (context) {
+      axios.post('/rest-auth/logout/')
+      context.dispatch('deleteToken')
+        .then(response => {
+          if (router.currentRoute.name === 'Login') {
+            return
+          }
+          router.push({ name: 'Login' })
+        })
+        .catch(error => {
+          console.log(error)
+          if (router.currentRoute.name === 'Login') {
+            return
+          }
+          router.push({ name: 'Login' })
+        }
+        )
     },
     storeToken (context, response) {
       const { data } = response
