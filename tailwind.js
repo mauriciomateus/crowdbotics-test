@@ -7,7 +7,8 @@ module.exports = {
         'auth-pages': "url('https://delgnnnzzjz4p.cloudfront.net/20210604.1/img/bg-dashboard.png')"
       }),
       backgroundColor: theme => ({
-        'brand-bg': '#727cf5'
+        'brand-bg': '#727cf5',
+        'modal-backdrop-bg': 'var(--tw-modal-backdrop-bg)'
       }),
       textColor: {
         'brand-color': '#727cf5'

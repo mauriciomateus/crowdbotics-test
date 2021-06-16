@@ -2,11 +2,15 @@
   <DashboardLayout>
     <div>
       <div class="dashboard-panel">
-        <h2 class="dashboard-panel-title">
-          Apps list
-        </h2>
+        <div class="flex justify-between items-center">
+          <h2 class="dashboard-panel-title">
+            Apps list
+          </h2>
+          <AppCrudModalOpenButton />
+        </div>
       </div>
     </div>
+    <AppCrudModal />
   </DashboardLayout>
 </template>
 
@@ -14,18 +18,18 @@
 // @vue/component
 import DashboardLayout from './DashboardLayout'
 import axios from 'axios'
+import AppCrudModal from './AppCrudModal'
+import AppCrudModalOpenButton from './AppCrudModalOpenButton'
 
 export default {
   components: {
-    DashboardLayout
+    DashboardLayout,
+    AppCrudModal,
+    AppCrudModalOpenButton
   },
+
   mounted () {
-    const accessToken = localStorage.getItem('accessToken')
-    axios.get('/api/v1/apps/', {
-      headers: {
-        Authorization: `token ${accessToken}`
-      }
-    })
+    axios.get('/api/v1/apps/')
       .then(response => console.log(response))
       .catch(error => {
         if (error.response.status === 401) {
@@ -34,6 +38,10 @@ export default {
         }
         console.log(error.response)
       })
+  },
+  methods: {
+    openModal () {
+    }
   }
 }
 </script>

@@ -10,3 +10,6 @@
         @apply font-normal text-2xl;
     }
 }
+:root{
+    --tw-modal-backdrop-bg : rgba(114, 124, 245, .72)
+}
