@@ -112,6 +112,9 @@ export default {
       return ''
     }
   },
+  created () {
+    this.redirectIfAuthenticated()
+  },
   methods: {
     handleFormSubmit () {
       this.sending = true
@@ -142,6 +145,12 @@ export default {
         return true
       }
       return this.formFields.includes(field)
+    },
+    redirectIfAuthenticated () {
+      if (!localStorage.getItem('accessToken')) {
+        return
+      }
+      this.$router.push({ name: 'Dashboard.AppsIndex' })
     }
   }
 }
