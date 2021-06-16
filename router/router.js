@@ -56,7 +56,14 @@ const router = new VueRouter({
   mode: 'history',
   routes
 })
-
+const isAuthenticated = !!localStorage.getItem('accessToken')
+// https://router.vuejs.org/guide/advanced/navigation-guards.html
+router.beforeEach((to, from, next) => {
+  if (to.path.includes('dashboard') && !isAuthenticated) {
+    next({ name: 'Login' })
+  }
+  next()
+})
 // Update page title: https://stackoverflow.com/questions/51639850/how-to-change-page-titles-when-using-vue-router
 const DEFAULT_TITLE = 'Crowdbotics'
 router.afterEach((to, from) => {
@@ -66,4 +73,5 @@ router.afterEach((to, from) => {
     document.title = to.meta.title || DEFAULT_TITLE
   })
 })
+
 export default router

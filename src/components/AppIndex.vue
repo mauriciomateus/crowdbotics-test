@@ -32,11 +32,7 @@ export default {
     axios.get('/api/v1/apps/')
       .then(response => console.log(response))
       .catch(error => {
-        if (error.response.status === 401) {
-          this.$router.push({ name: 'Login' })
-          return
-        }
-        console.log(error.response)
+        console.log(error)
       })
   },
   methods: {
