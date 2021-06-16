@@ -13,23 +13,17 @@
       </div>
 
       <form @submit.prevent="handleForm">
-        <BackendFormField
+        <FormField
           field-label="App Name *"
           field-name="name"
-          form-object-name="appFormData"
-          error-object-name="appCrudErrors"
         />
-        <BackendFormField
+        <FormField
           field-label="Type *"
           field-name="type"
-          form-object-name="appFormData"
-          error-object-name="appCrudErrors"
         />
-        <BackendFormField
+        <FormField
           field-label="Framework *"
           field-name="framework"
-          form-object-name="appFormData"
-          error-object-name="appCrudErrors"
         />
         <div>
           <button
@@ -51,7 +45,7 @@
 
 <script>
 // @vue/component
-import BackendFormField from './BackendFormField'
+import FormField from './FormField'
 import { createNamespacedHelpers } from 'vuex'
 
 import AppCrudModalCloseButton from './AppCrudModalCloseButton'
@@ -61,7 +55,7 @@ const { mapMutations } = createNamespacedHelpers('AppCrudForm')
 
 export default {
   components: {
-    BackendFormField,
+    FormField,
     AppCrudModalCloseButton
   },
   data () {

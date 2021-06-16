@@ -11,10 +11,10 @@
       :name="fieldName"
       class="w-full rounded-lg border-gray-500 mt-2"
       :placeholder="fieldLabel"
-      @input="updateStoreFormObject"
+      @input="updateFormData"
     >
-    <BackendError
-      error-object-name="appFormCrudErrors"
+    <ValidationError
+      :form-module-name="formModuleName"
       :error-field-name="fieldName"
     />
   </div>
@@ -22,12 +22,12 @@
 
 <script>
 // @vue/component
-import BackendError from './BackendError'
+import ValidationError from './ValidationError'
 import { mapMutations } from 'vuex/dist/vuex.mjs'
 
 export default {
   components: {
-    BackendError
+    ValidationError
   },
   props: {
     fieldName: {
@@ -42,11 +42,7 @@ export default {
       type: String,
       default: 'text'
     },
-    appCrudErrors: {
-      type: Object,
-      default: Object
-    },
-    formObjectName: {
+    formModuleName: {
       type: String,
       default: String
     }
@@ -57,12 +53,14 @@ export default {
     }
   },
   computed: {
-    fieldError () {
-      return this.appCrudErrors[this.fieldName]
-    }
   },
   methods: {
-    ...mapMutations(['setCrudFormData']),
+    updateFormData () {
+      // this.$store.commit('auth/forms/setFormField', this.fieldValue)
+      // console.log(this.$store.state.auth)
+      const { fieldName, fieldValue } = this
+      this.$store.commit(`${this.formModuleName}/setFormField`, { fieldName, fieldValue })
+    },
     updateStoreFormObject () {
       this.setCrudFormData({
         formObjectName: this.formObjectName,

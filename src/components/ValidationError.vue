@@ -8,11 +8,11 @@
 <script>
 // @vue/component
 import { createNamespacedHelpers } from 'vuex'
-const { mapGetters } = createNamespacedHelpers('AppCrudForm/BackendForm')
+const { mapGetters } = createNamespacedHelpers('auth')
 
 export default {
   props: {
-    errorObjectName: {
+    formModuleName: {
       type: String,
       default: String
     },
@@ -22,9 +22,10 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(['getBackendFormError']),
+    ...mapGetters(['getFormErrors']),
     error () {
-      return this.getBackendFormError(this.errorObjectName, this.errorFieldName)
+      const errors = this.getFormErrors
+      return errors[this.errorFieldName] ? errors[this.errorFieldName][0] : null
     }
   },
   methods: {

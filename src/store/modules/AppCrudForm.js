@@ -1,5 +1,5 @@
 import axios from 'axios'
-import BackendForm from './BackendForm'
+import ValidationError from './ValidationError'
 
 export default {
   namespaced: true,
@@ -35,14 +35,15 @@ export default {
     },
     setCrudFormData (state, payload) {
       console.log({ payload })
-      const { formObjectName, formFieldName, fieldValue } = payload
-      console.log('the info 1', { formObjectName, formFieldName, fieldValue })
-      if (!(formFieldName && formObjectName && fieldValue)) {
-        console.warn('Incomplete info to set crud form data: ', { formObjectName, formFieldName, fieldValue })
+      const { formModuleName, formFieldName, fieldValue } = payload
+      console.log('the info 1', { formModuleName, formFieldName, fieldValue })
+      if (!(formFieldName && formModuleName && fieldValue)) {
+        console.warn('Incomplete info to set crud form data: ', { formModuleName, formFieldName, fieldValue })
         return
       }
-      console.log('the info 2', { formObjectName, formFieldName, fieldValue })
-      state[formObjectName][formFieldName] = fieldValue
+      console.log('the info 2', { formModuleName, formFieldName, fieldValue })
+      console.log('Fix this')
+      // state[formModuleName][formFieldName] = fieldValue
     }
   },
   getters: {
@@ -54,6 +55,6 @@ export default {
     }
   },
   modules: {
-    BackendForm
+    ValidationError
   }
 }
