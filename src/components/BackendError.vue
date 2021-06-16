@@ -7,7 +7,8 @@
 
 <script>
 // @vue/component
-import { mapGetters } from 'vuex/dist/vuex.mjs'
+import { createNamespacedHelpers } from 'vuex'
+const { mapGetters } = createNamespacedHelpers('AppCrudForm/BackendForm')
 
 export default {
   props: {

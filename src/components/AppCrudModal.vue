@@ -2,7 +2,7 @@
   <div
     v-if="appCrudModalIsOpen"
     class="absolute inset-0 bg-modal-backdrop-bg flex justify-center items-center"
-    @click.self="closeModalCrudAppModal"
+    @click.self="closeCrudAppModal"
   >
     <div class="bg-white dashboard-panel w-1/2">
       <div class="flex justify-between">
@@ -52,8 +52,12 @@
 <script>
 // @vue/component
 import BackendFormField from './BackendFormField'
-import { mapActions, mapMutations, mapGetters } from 'vuex/dist/vuex.mjs'
+import { createNamespacedHelpers } from 'vuex'
+
 import AppCrudModalCloseButton from './AppCrudModalCloseButton'
+const { mapGetters } = createNamespacedHelpers('AppCrudForm')
+const { mapActions } = createNamespacedHelpers('AppCrudForm')
+const { mapMutations } = createNamespacedHelpers('AppCrudForm')
 
 export default {
   components: {
@@ -74,7 +78,7 @@ export default {
   },
   methods: {
     ...mapActions(['createApp']),
-    ...mapMutations(['closeModalCrudAppModal']),
+    ...mapMutations(['closeCrudAppModal']),
     handleForm () {
       this.createApp()
     }
