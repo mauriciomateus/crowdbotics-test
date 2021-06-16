@@ -4,7 +4,7 @@
       title="Login to Dashboard"
     >
       <AuthForm
-        end-point="/rest-auth/login/"
+        form-action="login"
         button-text="Login"
         redirect-route-name="Dashboard.AppsIndex"
         :form-fields="['all']"

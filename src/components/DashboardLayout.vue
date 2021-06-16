@@ -35,9 +35,16 @@ export default {
       axios.post('/rest-auth/logout/')
         .then(response => {
           localStorage.removeItem('accessToken')
+          if (this.$route.name === 'Login') {
+            return
+          }
           this.$router.push({ name: 'Login' })
         })
-        .catch(error => console.log(error.response.data))
+        .catch(error => {
+          console.log(error.response.data)
+          this.$router.push({ name: 'Login' })
+        }
+        )
     }
   }
 }

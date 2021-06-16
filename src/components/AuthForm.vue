@@ -1,7 +1,7 @@
 <template>
   <form
     class="w-full relative pb-20"
-    @submit.prevent="handleFormSubmit({endPoint})"
+    @submit.prevent="handleFormSubmit({formAction})"
   >
     <FormField
       form-module-name="auth"
@@ -91,7 +91,7 @@ export default {
     FormField
   },
   props: {
-    endPoint: {
+    formAction: {
       type: String,
       default: String
     },

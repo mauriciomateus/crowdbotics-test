@@ -17,29 +17,60 @@ export default {
       router.push({ name: 'Dashboard.AppsIndex' })
     },
     handleFormSubmit (context, params) {
-      const { endPoint } = params
-      context.commit('formIsSending')
+      const { formAction } = params
+      switch (formAction) {
+        case 'login':
+          context.dispatch('login')
+          break
+      }
+      // const { endPoint } = params
+      // context.commit('formIsSending')
+      // context.commit('clearFormErrors')
+      // axios.post(endPoint, context.state.formData)
+      //   .then(response => {
+      //     context.commit('formIsNotSending')
+      //     console.log(response)
+      //     context.dispatch('storeToken', response)
+      //   })
+      //   .catch(error => {
+      //     const theError = error.response.data
+      //     console.log('the error', theError)
+      //     if (theError.detail && theError.detail.trim().toLowerCase().includes('invalid token')) {
+      //       delete axios.defaults.headers.common.Authorization
+      //       // localStorage.removeItem('accessToken')
+      //       context.dispatch('handleFormSubmit', params)// Try to log in again
+      //     }
+      //     context.dispatch('deleteToken')
+      //     context.commit('setFormErrors', error.response.data)
+      //     context.commit('formIsNotSending')
+      // Temporary just to test redirect without creating an account
+      // this.handleRedirect()
+      // })
+    },
+    login (context) {
       context.commit('clearFormErrors')
-      axios.post(endPoint, context.state.formData)
+      axios.post('/rest-auth/login/', context.state.formData)
         .then(response => {
-          context.commit('formIsNotSending')
-          console.log(response)
-          context.dispatch('handleRedirect', response)
+          console.log(response.data)
+          context.dispatch('storeToken', response)
+          router.push({ name: 'Dashboard.AppsIndex' })
         })
         .catch(error => {
-          console.log({ error })
+          console.log(error)
+          console.log(error.response.data)
           context.commit('setFormErrors', error.response.data)
           context.commit('formIsNotSending')
-          // Temporary just to test redirect without creating an account
-          // this.handleRedirect()
         })
     },
-    handleRedirect (context, response) {
+    storeToken (context, response) {
       const { data } = response
-      console.log('data: ', data.key)
       const accessToken = data && data.key ? data.key : ''
-      localStorage.setItem('accessToken', accessToken)
-      router.push({ name: this.redirectRouteName })
+      if (accessToken) {
+        localStorage.setItem('accessToken', accessToken)
+      }
+    },
+    deleteToken (context) {
+      localStorage.removeItem('accessToken')
     }
   },
   mutations: {
