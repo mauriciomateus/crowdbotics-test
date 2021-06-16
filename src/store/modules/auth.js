@@ -7,7 +7,8 @@ export default {
     sending: false,
     formData: {},
     formErrors: {},
-    nonFieldErrors: {}
+    nonFieldErrors: {},
+    successfulRegistration: false
   },
   actions: {
     redirectIfAuthenticated (context) {
@@ -18,10 +19,16 @@ export default {
     },
     handleFormSubmit (context, params) {
       const { formAction } = params
+      console.log({ formAction })
       switch (formAction) {
         case 'login':
           context.dispatch('login')
           break
+        case 'register':
+          context.dispatch('register')
+          break
+        default:
+          alert('action not defined')
       }
       // const { endPoint } = params
       // context.commit('formIsSending')
@@ -48,6 +55,7 @@ export default {
       // })
     },
     login (context) {
+      context.commit('formIsSending')
       context.commit('clearFormErrors')
       delete axios.defaults.headers.common.Authorization // Do not send header when password is sent
       axios.post('/rest-auth/login/', context.state.formData)
@@ -62,6 +70,41 @@ export default {
           context.commit('setFormErrors', error.response.data)
           context.commit('formIsNotSending')
         })
+    },
+    register (context) {
+      context.commit('clearFormErrors')
+      context.commit('formIsSending')
+      delete axios.defaults.headers.common.Authorization // Do not send header when password is sent
+      axios.post('/rest-auth/registration/', context.state.formData)
+        .then(response => {
+          context.commit('clearFormData')
+          context.commit('formIsSending')
+          context.commit('setSuccessfulRegistration')
+          context.dispatch('redirectAfterSuccessfulRegistration')
+            .then(result => {
+              console.log(result)
+              setTimeout(function () {
+                router.push({ name: 'Login' })
+                context.commit('clearSuccessfulRegistration')
+                context.commit('formIsNotSending')
+              }, 3000)
+            })
+        })
+        .catch(error => {
+          console.log(error)
+          console.log(error.response.data)
+          context.commit('setFormErrors', error.response.data)
+          context.commit('formIsNotSending')
+        })
+    },
+    redirectAfterSuccessfulRegistration (context) {
+      return new Promise((resolve, reject) => {
+        resolve(
+          setTimeout(function () {
+            context.commit('setSuccessfulRegistration')
+          }, 1000)
+        )
+      })
     },
     logOut (context) {
       axios.post('/rest-auth/logout/')
@@ -114,7 +157,17 @@ export default {
     clearFormErrors (state) {
       state.nonFieldErrors = {}
       state.formErrors = {}
+    },
+    clearFormData (state) {
+      state.formData = {}
+    },
+    setSuccessfulRegistration (state) {
+      state.successfulRegistration = true
+    },
+    clearSuccessfulRegistration (state) {
+      state.successfulRegistration = false
     }
+
   },
   getters: {
     getFormErrors (state) {
@@ -133,6 +186,5 @@ export default {
       return this.formFields.includes(field)
     }
   },
-  modules: {
-  }
+  modules: {}
 }

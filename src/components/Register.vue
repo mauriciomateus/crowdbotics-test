@@ -3,8 +3,12 @@
     <RegisterAndLoginContainer
       title="Create account"
     >
+      <span
+        v-if="successfulRegistration"
+        class="bg-green-500 text-white p-3 rounded-md mt-1"
+      >Account created successfully!</span>
       <AuthForm
-        end-point="/rest-auth/registration/"
+        form-action="register"
         button-text="Sign Up"
         :form-fields="['all']"
       />
@@ -27,10 +31,10 @@
 <script>
 // @vue/component
 import AuthLayout from './AuthLayout'
-import AuthError from './AuthError'
-import axios from 'axios'
 import RegisterAndLoginContainer from './RegisterAndLoginContainer'
 import AuthForm from './AuthForm'
+import { createNamespacedHelpers } from 'vuex'
+const { mapState } = createNamespacedHelpers('auth')
 
 export default {
   name: 'RegistrationForm',
@@ -38,6 +42,9 @@ export default {
     AuthLayout,
     RegisterAndLoginContainer,
     AuthForm
+  },
+  computed: {
+    ...mapState(['successfulRegistration'])
   }
 }
 </script>
