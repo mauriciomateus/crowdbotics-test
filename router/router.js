@@ -1,18 +1,13 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import NotFound from '../src/components/NotFound'
-import Register from '../src/components/Register'
-import PasswordReset from '../src/components/PasswordReset'
-import Login from '../src/components/Login'
-import AppIndex from '../src/components/AppIndex'
-import PasswordResetMessage from '../src/components/PasswordResetMessage'
 
 Vue.use(VueRouter)
 const routes = [
   {
     path: '/register',
     name: 'Register',
-    component: Register,
+    component: () => import(/* webpackChunkName: "Register" */ './../src/components/Register'),
     meta: {
       title: 'Create Account'
     }
@@ -20,7 +15,7 @@ const routes = [
   {
     path: '/login',
     name: 'Login',
-    component: Login,
+    component: () => import(/* webpackChunkName: "Login" */ './../src/components/Login'),
     meta: {
       title: 'Login'
     }
@@ -28,7 +23,7 @@ const routes = [
   {
     name: 'Dashboard.AppsIndex',
     path: '/dashboard/apps',
-    component: AppIndex,
+    component: () => import(/* webpackChunkName: "AppIndex" */ './../src/components/AppIndex'),
     meta: {
       title: 'Your Apps'
     }
@@ -36,14 +31,14 @@ const routes = [
   {
     path: '/password-reset',
     name: 'PasswordReset',
-    component: PasswordReset,
+    component: () => import(/* webpackChunkName: "PasswordReset" */ './../src/components/PasswordReset'),
     meta: {
       title: 'Reset Your Password'
     }
   }, {
     path: '/password-reset-done',
     name: 'PasswordResetMessage',
-    component: PasswordResetMessage,
+    component: () => import(/* webpackChunkName: "PasswordResetMessage" */ './../src/components/PasswordResetMessage'),
     meta: {
       title: 'Check your email'
     }
