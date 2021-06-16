@@ -10,7 +10,7 @@
       <AuthForm
         form-action="register"
         button-text="Sign Up"
-        :form-fields="['all']"
+        :form-fields="['email', 'password']"
       />
       <template v-slot:footer>
         <p>

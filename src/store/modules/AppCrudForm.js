@@ -6,8 +6,8 @@ export default {
   state: {
     appCrudModalIsOpen: false,
     appFormSending: false,
-    appFormCrudErrors: {},
-    appFormData: {}
+    formErrors: {},
+    formData: {}
   },
   actions: {
     createApp (context) {

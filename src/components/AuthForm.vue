@@ -4,6 +4,7 @@
     @submit.prevent="handleFormSubmit({formAction})"
   >
     <FormField
+      v-if="displayField('email')"
       form-module-name="auth"
       field-label="Email *"
       field-name="email"
@@ -11,6 +12,7 @@
       form-object-name="authForm"
     />
     <FormField
+      v-if="displayField('password')"
       form-module-name="auth"
       field-label="Password *"
       field-name="password"
@@ -69,7 +71,7 @@
       <div class="flex justify-end">
         <i
           class="fas fa-window-close mr-1 p-1 cursor-pointer"
-          @click="clearValidationErrors"
+          @click="clearFormErrors"
         />
       </div>
       <div class="p-2">
@@ -120,7 +122,10 @@ export default {
     this.redirectIfAuthenticated()
   },
   methods: {
-    ...mapActions(['redirectIfAuthenticated', 'handleFormSubmit', 'clearValidationErrors'])
+    ...mapActions(['redirectIfAuthenticated', 'handleFormSubmit', 'clearFormErrors']),
+    displayField (fieldName) {
+      return this.formFields.includes(fieldName)
+    }
   }
 }
 </script>

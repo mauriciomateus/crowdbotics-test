@@ -4,9 +4,10 @@
       title="Reset your password"
     >
       <AuthForm
-        end-point="/rest-auth/password/reset/"
+        form-action="passwordReset"
         button-text="Reset Password"
         redirect-route-name="PasswordResetMessage"
+        :form-fields="['email']"
       />
       <template v-slot:footer>
         <p>

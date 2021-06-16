@@ -7,7 +7,7 @@
         form-action="login"
         button-text="Login"
         redirect-route-name="Dashboard.AppsIndex"
-        :form-fields="['all']"
+        :form-fields="['email', 'password']"
       />
       <template v-slot:footer>
         <div class="flex justify-between w-full">

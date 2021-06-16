@@ -27,12 +27,15 @@ export default {
         case 'register':
           context.dispatch('register')
           break
+        case 'passwordReset':
+          context.dispatch('passwordReset')
+          break
         default:
           alert('action not defined')
       }
       // const { endPoint } = params
       // context.commit('formIsSending')
-      // context.commit('clearFormErrors')
+      // context.dispatch('clearFormErrors')
       // axios.post(endPoint, context.state.formData)
       //   .then(response => {
       //     context.commit('formIsNotSending')
@@ -56,7 +59,7 @@ export default {
     },
     login (context) {
       context.commit('formIsSending')
-      context.commit('clearFormErrors')
+      context.dispatch('clearFormErrors')
       delete axios.defaults.headers.common.Authorization // Do not send header when password is sent
       axios.post('/rest-auth/login/', context.state.formData)
         .then(response => {
@@ -72,7 +75,7 @@ export default {
         })
     },
     register (context) {
-      context.commit('clearFormErrors')
+      context.dispatch('clearFormErrors')
       context.commit('formIsSending')
       delete axios.defaults.headers.common.Authorization // Do not send header when password is sent
       axios.post('/rest-auth/registration/', context.state.formData)
@@ -107,8 +110,8 @@ export default {
       })
     },
     logOut (context) {
-      axios.post('/rest-auth/logout/')
       context.dispatch('deleteToken')
+      axios.post('/rest-auth/logout/')
         .then(response => {
           if (router.currentRoute.name === 'Login') {
             return
@@ -124,6 +127,23 @@ export default {
         }
         )
     },
+    passwordReset (context) {
+      context.commit('formIsSending')
+      context.dispatch('clearFormErrors')
+
+      axios.post('/rest-auth/password/reset/', context.state.formData)
+        .then(response => {
+          context.commit('formIsNotSending')
+          context.dispatch('clearFormErrors')
+          router.push({ name: 'PasswordResetMessage' })
+        })
+        .catch(error => {
+          context.commit('formIsNotSending')
+          context.commit('setFormErrors', error.response.data)
+          console.log(error.response.data)
+        }
+        )
+    },
     storeToken (context, response) {
       const { data } = response
       const accessToken = data && data.key ? data.key : ''
@@ -133,6 +153,9 @@ export default {
     },
     deleteToken (context) {
       localStorage.removeItem('accessToken')
+    },
+    clearFormErrors (context) {
+      context.commit('clearFormErrors')
     }
   },
   mutations: {
@@ -145,6 +168,8 @@ export default {
     setFormErrors (state, errors) {
       state.formErrors = errors
       state.nonFieldErrors = errors.non_field_errors ? errors.non_field_errors[0] : null
+      // Edge cases
+      state.nonFieldErrors = errors.email && errors.email.email ? errors.email.email[0] : null
     },
     setFormField (state, payload) {
       const { fieldName, fieldValue } = payload
