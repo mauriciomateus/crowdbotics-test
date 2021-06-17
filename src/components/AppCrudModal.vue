@@ -24,12 +24,7 @@
         <!--          field-label="Type *"-->
         <!--          field-name="type"-->
         <!--        />-->
-        <FormField
-          form-module-name="apps"
-          field-label="Framework *"
-          field-name="framework"
-          field-default-value="Django"
-        />
+        <FrameworkPicker />
         <div>
           <button
             type="submit"
@@ -56,6 +51,7 @@ import { createNamespacedHelpers } from 'vuex'
 import AppCrudModalCloseButton from './AppCrudModalCloseButton'
 import { setFormField } from '../helpers'
 import AppTypePicker from './AppTypePicker'
+import FrameworkPicker from './FrameworkPicker'
 const { mapGetters } = createNamespacedHelpers('apps')
 const { mapActions } = createNamespacedHelpers('apps')
 const { mapMutations } = createNamespacedHelpers('apps')
@@ -64,7 +60,8 @@ export default {
   components: {
     FormField,
     AppCrudModalCloseButton,
-    AppTypePicker
+    AppTypePicker,
+    FrameworkPicker
   },
   data () {
     return {
