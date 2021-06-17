@@ -31,6 +31,13 @@ export default {
         .catch(error => {
           console.log(error)
         })
+    },
+    deleteApp (context, id) {
+      axios.delete(`/api/v1/apps/${id}`)
+        .then(response => {
+          context.commit('deleteApp', id)
+        })
+        .catch(error => console.log(error.response.data))
     }
   },
   mutations: {
@@ -48,6 +55,14 @@ export default {
     },
     pushAppToIndex (state, app) {
       state.apps.push(app)
+    },
+    deleteApp (state, id) {
+      const { apps } = state
+      const copy = [...apps]
+      const newApps = copy.filter(app => {
+        return app.id !== id
+      })
+      state.apps = newApps
     }
 
   },
