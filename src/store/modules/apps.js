@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { getFormErrors, resetFormErrors, setFormErrors, setFormField } from '../../helpers'
+import { formIsNotSending, formIsSending, getFormErrors, resetFormErrors, setFormErrors, setFormField } from '../../helpers'
 
 export default {
   namespaced: true,
@@ -13,14 +13,17 @@ export default {
   actions: {
     createApp (context) {
       context.commit('resetFormErrors')
+      context.commit('formIsSending')
       axios.post('/api/v1/apps/', context.state.formData)
         .then(response => {
           context.commit('pushAppToIndex', response.data)
+          context.commit('formIsNotSending')
           console.log(response.data)
         })
         .catch(error => {
           console.log('appFormErrors:', error.response.data)
           context.commit('setFormErrors', error.response.data)
+          context.commit('formIsNotSending')
         })
     },
     fetchAppIndex (context) {
@@ -44,6 +47,8 @@ export default {
     setFormErrors,
     resetFormErrors,
     setFormField,
+    formIsSending,
+    formIsNotSending,
     openModalCrudAppModal (state) {
       state.appCrudModalIsOpen = true
     },
@@ -72,7 +77,7 @@ export default {
       return !!state.appCrudModalIsOpen
     },
     appFormSending (state) {
-      return state.appFormSending
+      return state.sending
     },
     getAppIndex (state) {
       return state.apps

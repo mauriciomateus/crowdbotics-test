@@ -1,6 +1,6 @@
 import axios from 'axios'
 import router from './../../../router/router'
-import { deleteAxiosAuthHeader, getFormErrors, setAxiosAuthHeader, setFormField } from '../../helpers'
+import { deleteAxiosAuthHeader, formIsNotSending, formIsSending, getFormErrors, setAxiosAuthHeader, setFormField } from '../../helpers'
 
 export default {
   namespaced: true,
@@ -163,12 +163,8 @@ export default {
     }
   },
   mutations: {
-    formIsSending (state) {
-      state.sending = true
-    },
-    formIsNotSending (state) {
-      state.sending = false
-    },
+    formIsSending,
+    formIsNotSending,
     setFormErrors (state, errors) {
       state.formErrors = errors
       state.nonFieldErrors = errors.non_field_errors ? errors.non_field_errors[0] : null

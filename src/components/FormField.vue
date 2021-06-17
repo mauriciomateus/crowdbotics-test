@@ -57,9 +57,6 @@ export default {
   },
   computed: {
   },
-  mounted () {
-    this.fieldValue = this.fieldDefaultValue
-  },
   methods: {
     updateFormData () {
       // this.$store.commit('auth/forms/setFormField', this.fieldValue)

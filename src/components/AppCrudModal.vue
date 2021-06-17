@@ -34,11 +34,11 @@
           <button
             type="submit"
             class="uppercase py-3 px-20 bg-brand-bg text-white rounded-3xl font-bold mt-4 focus:outline-none focus:ring-4 focus:ring-green-200 flex items-center disabled:opacity-50 disabled:cursor-not-allowed"
-            :disabled="appFormSending"
+            :disabled="appFormBeingSent"
           >
             Create App
             <i
-              v-if="appFormSending"
+              v-if="appFormBeingSent"
               class="fas fa-spinner mr-1 animate animate-spin ml-3 flex w-8 h-8 justify-center items-center absolute text-4xl"
             />
           </button>
@@ -73,7 +73,10 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(['appCrudModalIsOpen', 'appFormSending'])
+    ...mapGetters(['appCrudModalIsOpen', 'appFormSending']),
+    appFormBeingSent () {
+      return this.appFormSending
+    }
   },
   created () {
     this.modal_is_visible = true
