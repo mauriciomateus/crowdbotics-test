@@ -18,11 +18,12 @@
           field-label="App Name *"
           field-name="name"
         />
-        <FormField
-          form-module-name="apps"
-          field-label="Type *"
-          field-name="type"
-        />
+        <AppTypePicker />
+        <!--        <FormField-->
+        <!--          form-module-name="apps"-->
+        <!--          field-label="Type *"-->
+        <!--          field-name="type"-->
+        <!--        />-->
         <FormField
           form-module-name="apps"
           field-label="Framework *"
@@ -53,6 +54,7 @@ import { createNamespacedHelpers } from 'vuex'
 
 import AppCrudModalCloseButton from './AppCrudModalCloseButton'
 import { setFormField } from '../helpers'
+import AppTypePicker from './AppTypePicker'
 const { mapGetters } = createNamespacedHelpers('apps')
 const { mapActions } = createNamespacedHelpers('apps')
 const { mapMutations } = createNamespacedHelpers('apps')
@@ -60,7 +62,8 @@ const { mapMutations } = createNamespacedHelpers('apps')
 export default {
   components: {
     FormField,
-    AppCrudModalCloseButton
+    AppCrudModalCloseButton,
+    AppTypePicker
   },
   data () {
     return {

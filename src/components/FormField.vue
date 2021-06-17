@@ -44,6 +44,10 @@ export default {
     formModuleName: {
       type: String,
       default: String
+    },
+    defaultFieldValue: {
+      type: String,
+      default: String
     }
   },
   data () {
