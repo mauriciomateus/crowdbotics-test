@@ -59,8 +59,6 @@ export default {
   },
   methods: {
     updateFormData () {
-      // this.$store.commit('auth/forms/setFormField', this.fieldValue)
-      // console.log(this.$store.state.auth)
       const { fieldName, fieldValue } = this
       this.$store.commit(`${this.formModuleName}/setFormField`, { fieldName, fieldValue })
     },

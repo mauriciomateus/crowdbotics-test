@@ -64,7 +64,6 @@ const router = new VueRouter({
 const isAuthenticated = !!localStorage.getItem('accessToken')
 // https://router.vuejs.org/guide/advanced/navigation-guards.html
 router.beforeEach((to, from, next) => {
-  console.log(to.name, from.name)
   const isLoginPage = router.currentRoute.name
   if (to.path.includes('dashboard') && !isAuthenticated && !isLoginPage) {
     try {

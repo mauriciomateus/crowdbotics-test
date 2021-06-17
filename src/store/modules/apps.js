@@ -18,10 +18,8 @@ export default {
         .then(response => {
           context.commit('pushAppToIndex', response.data)
           context.commit('formIsNotSending')
-          console.log(response.data)
         })
         .catch(error => {
-          console.log('appFormErrors:', error.response.data)
           context.commit('setFormErrors', error.response.data)
           context.commit('formIsNotSending')
         })

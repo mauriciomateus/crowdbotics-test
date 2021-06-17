@@ -22,10 +22,7 @@ export default {
   },
   computed: {
     error () {
-      // alert(`${router.currentRoute.meta.storeModuleName}/getFormErrors`)
-      // All of this hassle because the createNamespacedHelpers functions did not work passing a dynamic namespace
       const errors = this.$store.getters[`${router.currentRoute.meta.storeModuleName}/getFormErrors`]
-      console.log({ errors })
       return errors[this.errorFieldName] ? errors[this.errorFieldName][0] : null
     }
   },

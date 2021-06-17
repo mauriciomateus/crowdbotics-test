@@ -20,7 +20,6 @@ export default {
     },
     handleFormSubmit (context, params) {
       const { formAction } = params
-      console.log({ formAction })
       switch (formAction) {
         case 'login':
           context.dispatch('login')
@@ -34,29 +33,6 @@ export default {
         default:
           alert('action not defined')
       }
-      // const { endPoint } = params
-      // context.commit('formIsSending')
-      // context.dispatch('clearFormErrors')
-      // axios.post(endPoint, context.state.formData)
-      //   .then(response => {
-      //     context.commit('formIsNotSending')
-      //     console.log(response)
-      //     context.dispatch('storeToken', response)
-      //   })
-      //   .catch(error => {
-      //     const theError = error.response.data
-      //     console.log('the error', theError)
-      //     if (theError.detail && theError.detail.trim().toLowerCase().includes('invalid token')) {
-      //       delete axios.defaults.headers.common.Authorization
-      //       // localStorage.removeItem('accessToken')
-      //       context.dispatch('handleFormSubmit', params)// Try to log in again
-      //     }
-      //     context.dispatch('deleteToken')
-      //     context.commit('setFormErrors', error.response.data)
-      //     context.commit('formIsNotSending')
-      // Temporary just to test redirect without creating an account
-      // this.handleRedirect()
-      // })
     },
     login (context) {
       context.commit('formIsSending')
@@ -65,7 +41,6 @@ export default {
 
       axios.post('/rest-auth/login/', context.state.formData)
         .then(response => {
-          console.log(response.data)
           context.dispatch('storeToken', response)
           context.commit('formIsNotSending')
           setAxiosAuthHeader()
@@ -73,7 +48,6 @@ export default {
         })
         .catch(error => {
           console.log(error)
-          console.log(error.response.data)
           context.commit('setFormErrors', error.response.data)
           context.commit('formIsNotSending')
         })
@@ -89,7 +63,6 @@ export default {
           context.commit('setSuccessfulRegistration')
           context.dispatch('redirectAfterSuccessfulRegistration')
             .then(result => {
-              console.log(result)
               setTimeout(function () {
                 router.push({ name: 'Login' })
                 context.commit('clearSuccessfulRegistration')
@@ -99,7 +72,6 @@ export default {
         })
         .catch(error => {
           console.log(error)
-          console.log(error.response.data)
           context.commit('setFormErrors', error.response.data)
           context.commit('formIsNotSending')
         })
