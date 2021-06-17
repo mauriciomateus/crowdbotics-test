@@ -4,10 +4,31 @@
       <div class="dashboard-panel">
         <div class="flex justify-between items-center">
           <h2 class="dashboard-panel-title">
-            Apps list
+            App list
           </h2>
           <AppCrudModalOpenButton />
         </div>
+        <table>
+          <thead>
+            <tr>
+              <td>ID</td>
+              <td>Name</td>
+              <td>Type</td>
+              <td>Framework</td>
+            </tr>
+          </thead>
+          <tbody>
+            <tr
+              v-for="app in apps"
+              :key="app.id"
+            >
+              <td>{{ app.id }}</td>
+              <td>{{ app.name }}</td>
+              <td>{{ app.type }}</td>
+              <td>{{ app.framework }}</td>
+            </tr>
+          </tbody>
+        </table>
       </div>
     </div>
     <AppCrudModal />
@@ -17,27 +38,27 @@
 <script>
 // @vue/component
 import DashboardLayout from './DashboardLayout'
-import axios from 'axios'
 import AppCrudModal from './AppCrudModal'
 import AppCrudModalOpenButton from './AppCrudModalOpenButton'
+import { mapState, mapActions, mapGetters } from 'vuex'
 
 export default {
+  name: 'AppIndex',
   components: {
     DashboardLayout,
     AppCrudModal,
     AppCrudModalOpenButton
   },
-
+  computed: {
+    apps () {
+      return this.$store.getters['apps/getAppIndex']
+    }
+  },
   mounted () {
-    axios.get('/api/v1/apps/')
-      .then(response => console.log(response))
-      .catch(error => {
-        console.log(error)
-      })
+    this.$store.dispatch('apps/fetchAppIndex')
   },
   methods: {
-    openModal () {
-    }
+    // ...mapActions(['apps/getAppIndex'])
   }
 }
 </script>

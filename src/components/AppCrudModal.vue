@@ -14,14 +14,17 @@
 
       <form @submit.prevent="handleForm">
         <FormField
+          form-module-name="apps"
           field-label="App Name *"
           field-name="name"
         />
         <FormField
+          form-module-name="apps"
           field-label="Type *"
           field-name="type"
         />
         <FormField
+          form-module-name="apps"
           field-label="Framework *"
           field-name="framework"
         />
@@ -49,9 +52,10 @@ import FormField from './FormField'
 import { createNamespacedHelpers } from 'vuex'
 
 import AppCrudModalCloseButton from './AppCrudModalCloseButton'
-const { mapGetters } = createNamespacedHelpers('AppCrudForm')
-const { mapActions } = createNamespacedHelpers('AppCrudForm')
-const { mapMutations } = createNamespacedHelpers('AppCrudForm')
+import { setFormField } from '../helpers'
+const { mapGetters } = createNamespacedHelpers('apps')
+const { mapActions } = createNamespacedHelpers('apps')
+const { mapMutations } = createNamespacedHelpers('apps')
 
 export default {
   components: {
@@ -72,7 +76,7 @@ export default {
   },
   methods: {
     ...mapActions(['createApp']),
-    ...mapMutations(['closeCrudAppModal']),
+    ...mapMutations(['closeCrudAppModal', 'setFormField']),
     handleForm () {
       this.createApp()
     }

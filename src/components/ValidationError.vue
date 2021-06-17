@@ -7,8 +7,7 @@
 
 <script>
 // @vue/component
-import { createNamespacedHelpers } from 'vuex'
-const { mapGetters } = createNamespacedHelpers('auth')
+import router from '../../router/router'
 
 export default {
   props: {
@@ -22,9 +21,11 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(['getFormErrors']),
     error () {
-      const errors = this.getFormErrors
+      // alert(`${router.currentRoute.meta.storeModuleName}/getFormErrors`)
+      // All of this hassle because the createNamespacedHelpers functions did not work passing a dynamic namespace
+      const errors = this.$store.getters[`${router.currentRoute.meta.storeModuleName}/getFormErrors`]
+      console.log({ errors })
       return errors[this.errorFieldName] ? errors[this.errorFieldName][0] : null
     }
   },
@@ -32,4 +33,5 @@ export default {
 
   }
 }
+
 </script>

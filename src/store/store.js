@@ -2,7 +2,7 @@ import Vue from 'vue'
 import axios from 'axios'
 import Vuex, { Store } from 'vuex'
 import router from './../../router/router'
-import AppCrudForm from './modules/AppCrudForm'
+import apps from './modules/apps'
 import auth from './modules/auth'
 
 Vue.use(Vuex)
@@ -21,7 +21,7 @@ export default new Vuex.Store({
 
   },
   modules: {
-    AppCrudForm,
+    apps,
     auth
   }
 })

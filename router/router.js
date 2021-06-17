@@ -17,7 +17,8 @@ const routes = [
     name: 'Login',
     component: () => import(/* webpackChunkName: "Login" */ './../src/components/Login'),
     meta: {
-      title: 'Login'
+      title: 'Login',
+      storeModuleName: 'auth'
     }
   },
   {
@@ -25,7 +26,8 @@ const routes = [
     path: '/dashboard/apps',
     component: () => import(/* webpackChunkName: "AppIndex" */ './../src/components/AppIndex'),
     meta: {
-      title: 'Your Apps'
+      title: 'Your Apps',
+      storeModuleName: 'apps'
     }
   },
   {

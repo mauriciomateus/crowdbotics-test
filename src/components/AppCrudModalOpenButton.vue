@@ -11,7 +11,7 @@
 <script>
 // @vue/component
 import { createNamespacedHelpers } from 'vuex'
-const { mapMutations } = createNamespacedHelpers('AppCrudForm')
+const { mapMutations } = createNamespacedHelpers('apps')
 
 export default {
   methods: {

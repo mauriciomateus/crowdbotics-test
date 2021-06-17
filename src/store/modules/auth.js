@@ -1,6 +1,6 @@
 import axios from 'axios'
 import router from './../../../router/router'
-import { deleteAxiosAuthHeader, setAxiosAuthHeader } from '../../helpers'
+import { deleteAxiosAuthHeader, getFormErrors, setAxiosAuthHeader, setFormField } from '../../helpers'
 
 export default {
   namespaced: true,
@@ -177,14 +177,7 @@ export default {
         state.nonFieldErrors = errors.email.email[0]
       }
     },
-    setFormField (state, payload) {
-      const { fieldName, fieldValue } = payload
-      if (!(fieldName && fieldValue)) {
-        console.warn('Unable to set form field. Data: ', { fieldName, fieldValue })
-        return
-      }
-      state.formData[fieldName] = fieldValue
-    },
+    setFormField,
     clearFormErrors (state) {
       state.nonFieldErrors = {}
       state.formErrors = {}
@@ -201,9 +194,7 @@ export default {
 
   },
   getters: {
-    getFormErrors (state) {
-      return state.formErrors
-    },
+    getFormErrors,
     nonFieldErrors (state) {
       return state.nonFieldErrors
     },
