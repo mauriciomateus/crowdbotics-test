@@ -28,6 +28,7 @@
           form-module-name="apps"
           field-label="Framework *"
           field-name="framework"
+          field-default-value="Django"
         />
         <div>
           <button
