@@ -1,5 +1,6 @@
 import axios from 'axios'
 import router from './../../../router/router'
+import { deleteAxiosAuthHeader, setAxiosAuthHeader } from '../../helpers'
 
 export default {
   namespaced: true,
@@ -60,11 +61,14 @@ export default {
     login (context) {
       context.commit('formIsSending')
       context.dispatch('clearFormErrors')
-      delete axios.defaults.headers.common.Authorization // Do not send header when password is sent
+      deleteAxiosAuthHeader()
+
       axios.post('/rest-auth/login/', context.state.formData)
         .then(response => {
           console.log(response.data)
           context.dispatch('storeToken', response)
+          context.commit('formIsNotSending')
+          setAxiosAuthHeader()
           router.push({ name: 'Dashboard.AppsIndex' })
         })
         .catch(error => {
@@ -77,7 +81,7 @@ export default {
     register (context) {
       context.dispatch('clearFormErrors')
       context.commit('formIsSending')
-      delete axios.defaults.headers.common.Authorization // Do not send header when password is sent
+      deleteAxiosAuthHeader()// Do not send header when password is sent
       axios.post('/rest-auth/registration/', context.state.formData)
         .then(response => {
           context.commit('clearFormData')
@@ -169,7 +173,9 @@ export default {
       state.formErrors = errors
       state.nonFieldErrors = errors.non_field_errors ? errors.non_field_errors[0] : null
       // Edge cases
-      state.nonFieldErrors = errors.email && errors.email.email ? errors.email.email[0] : null
+      if (errors.email && errors.email.email) {
+        state.nonFieldErrors = errors.email.email[0]
+      }
     },
     setFormField (state, payload) {
       const { fieldName, fieldValue } = payload
