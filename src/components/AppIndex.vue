@@ -78,7 +78,8 @@ export default {
   },
   computed: {
     apps () {
-      return this.$store.getters['apps/getAppIndex']
+      const apps = this.$store.getters['apps/getAppIndex']
+      return Array.from(apps).reverse()
     }
   },
   mounted () {
