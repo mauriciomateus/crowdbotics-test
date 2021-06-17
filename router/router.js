@@ -9,7 +9,8 @@ const routes = [
     name: 'Register',
     component: () => import(/* webpackChunkName: "Register" */ './../src/components/Register'),
     meta: {
-      title: 'Create Account'
+      title: 'Create Account',
+      storeModuleName: 'auth'
     }
   },
   {
@@ -35,14 +36,16 @@ const routes = [
     name: 'PasswordReset',
     component: () => import(/* webpackChunkName: "PasswordReset" */ './../src/components/PasswordReset'),
     meta: {
-      title: 'Reset Your Password'
+      title: 'Reset Your Password',
+      storeModuleName: 'auth'
     }
   }, {
     path: '/password-reset-done',
     name: 'PasswordResetMessage',
     component: () => import(/* webpackChunkName: "PasswordResetMessage" */ './../src/components/PasswordResetMessage'),
     meta: {
-      title: 'Check your email'
+      title: 'Check your email',
+      storeModuleName: 'apps'
     }
   },
   {
