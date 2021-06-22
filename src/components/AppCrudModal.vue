@@ -1,15 +1,17 @@
 <template>
   <div
-    v-if="appCrudModalIsOpen"
+    v-if="modalIsOpen"
     class="absolute inset-0 bg-modal-backdrop-bg flex justify-center items-center"
-    @click.self="closeCrudAppModal"
+    @click.self="closeModal"
   >
     <div class="bg-white dashboard-panel w-1/2">
       <div class="flex justify-between">
-        <h1 class="dashboard-panel-title">
-          Create an app
-        </h1>
-        <AppCrudModalCloseButton />
+        <h1
+          class="dashboard-panel-title"
+          :class="modal.titleClasses"
+          v-text="modal.title"
+        />
+        <ModalCloseButton />
       </div>
 
       <form @submit.prevent="handleForm">
@@ -48,7 +50,7 @@
 import FormField from './FormField'
 import { createNamespacedHelpers } from 'vuex'
 
-import AppCrudModalCloseButton from './AppCrudModalCloseButton'
+import ModalCloseButton from './ModalCloseButton'
 import { setFormField } from '../helpers'
 import AppTypePicker from './AppTypePicker'
 import FrameworkPicker from './FrameworkPicker'
@@ -59,9 +61,11 @@ const { mapMutations } = createNamespacedHelpers('apps')
 export default {
   components: {
     FormField,
-    AppCrudModalCloseButton,
+    ModalCloseButton,
     AppTypePicker,
     FrameworkPicker
+  },
+  props: {
   },
   data () {
     return {
@@ -70,19 +74,34 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(['appCrudModalIsOpen', 'appFormSending']),
+    ...mapGetters(['appFormSending']),
+    ...mapGetters({ modal: 'getModalInfo' }),
+    modalIsOpen () {
+      return this.modal.isOpen
+    },
     appFormBeingSent () {
       return this.appFormSending
     }
   },
   created () {
     this.modal_is_visible = true
+    this.closeModalOnEscapeKey()
   },
   methods: {
     ...mapActions(['createApp']),
-    ...mapMutations(['closeCrudAppModal', 'setFormField']),
+    ...mapMutations(['setModalInfo', 'setFormField']),
     handleForm () {
       this.createApp()
+    },
+    closeModal () {
+      this.setModalInfo({ isOpen: false })
+    },
+    closeModalOnEscapeKey () {
+      window.addEventListener('keydown', (event) => {
+        if (event.key.toLowerCase() === 'escape') {
+          this.closeModal()
+        }
+      })
     }
   }
 }

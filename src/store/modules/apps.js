@@ -8,7 +8,11 @@ export default {
     sending: false,
     formErrors: {},
     formData: {},
-    apps: {}
+    apps: {},
+    modalInfo: {
+      isOpen: false,
+      title: null
+    }
   },
   actions: {
     createApp (context) {
@@ -47,9 +51,6 @@ export default {
     setFormField,
     formIsSending,
     formIsNotSending,
-    openModalCrudAppModal (state) {
-      state.appCrudModalIsOpen = true
-    },
     closeCrudAppModal (state) {
       state.appCrudModalIsOpen = false
     },
@@ -66,8 +67,11 @@ export default {
         return app.id !== id
       })
       state.apps = newApps
+    },
+    setModalInfo (state, data) {
+      const currentData = { ...state.modalInfo }
+      state.modalInfo = Object.assign(currentData, data)
     }
-
   },
   getters: {
     getFormErrors,
@@ -79,6 +83,9 @@ export default {
     },
     getAppIndex (state) {
       return state.apps
+    },
+    getModalInfo (state) {
+      return state.modalInfo
     }
   },
   modules: {

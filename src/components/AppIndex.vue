@@ -6,7 +6,12 @@
           <h2 class="dashboard-panel-title">
             App list
           </h2>
-          <AppCrudModalOpenButton />
+          <ModalLauncher
+            css-classes=" border-brand-color bg-gray-400 text-white"
+            modal-title="Create app"
+          >
+            <i class="fas fa-plus text-white" />
+          </ModalLauncher>
         </div>
         <table class="w-full mt-3">
           <thead>
@@ -46,12 +51,19 @@
                 {{ app.framework }}
               </td>
               <td class="border border-emerald-500 px-4 py-2 text-emerald-600 font-medium">
-                <button
-                  class="bg-red-500 text-white rounded-md py-1 px-3 focus:outline-none focus:ring-4 focus:ring-green-200"
-                  @click="deleteApp(app.id)"
+                <!--                <button-->
+                <!--                  class="bg-red-500 text-white rounded-md py-1 px-3 focus:outline-none focus:ring-4 focus:ring-green-200"-->
+                <!--                  @click="deleteApp(app.id)"-->
+                <!--                >-->
+                <!--                  Delete-->
+                <!--                </button>-->
+                <ModalLauncher
+                  css-classes=" border-brand-color bg-red-500"
+                  modal-title="Are you sure you want to delete this app?"
+                  modal-title-classes="text-red-500"
                 >
-                  Delete
-                </button>
+                  <i class="fas fa-minus text-white" />
+                </ModalLauncher>
               </td>
             </tr>
           </tbody>
@@ -66,15 +78,15 @@
 // @vue/component
 import DashboardLayout from './DashboardLayout'
 import AppCrudModal from './AppCrudModal'
-import AppCrudModalOpenButton from './AppCrudModalOpenButton'
-import { mapState, mapActions, mapGetters } from 'vuex'
+import ModalLauncher from './ModalLauncher'
+import { mapMutations } from 'vuex'
 
 export default {
   name: 'AppIndex',
   components: {
     DashboardLayout,
     AppCrudModal,
-    AppCrudModalOpenButton
+    ModalLauncher
   },
   computed: {
     apps () {
@@ -88,7 +100,8 @@ export default {
   methods: {
     deleteApp (id) {
       this.$store.dispatch('apps/deleteApp', id)
-    }
+    },
+    ...mapMutations(['apps/setModalInfo'])
   }
 }
 </script>
