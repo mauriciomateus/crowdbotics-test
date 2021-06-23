@@ -4,6 +4,7 @@ import Vuex, { Store } from 'vuex'
 import router from './../../router/router'
 import apps from './modules/apps'
 import auth from './modules/auth'
+import toast from './modules/toast'
 
 Vue.use(Vuex)
 
@@ -22,6 +23,7 @@ export default new Vuex.Store({
   },
   modules: {
     apps,
-    auth
+    auth,
+    toast
   }
 })

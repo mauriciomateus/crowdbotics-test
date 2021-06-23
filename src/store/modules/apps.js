@@ -23,6 +23,11 @@ export default {
         .then(response => {
           context.commit('pushAppToIndex', response.data)
           context.commit('setModalInfo', { isLoading: false })
+          context.commit('toast/setToastInfo', {
+            type: 'success',
+            title: 'success!',
+            message: 'App created successfully'
+          }, { root: true })
         })
         .catch(error => {
           context.commit('setFormErrors', error.response.data)
@@ -43,7 +48,17 @@ export default {
       axios.delete(`/api/v1/apps/${id}`)
         .then(response => {
           context.commit('deleteApp', id)
-          context.commit('setModalInfo', { isLoading: false })
+          setTimeout(() => {
+            context.commit('clearModalInfo')
+          }, 1800)
+          context.commit('toast/setToastInfo', {
+            type: 'success',
+            title: 'success!',
+            message: 'App deleted successfully'
+          }, { root: true })
+          setTimeout(() => {
+            context.commit('toast/clearToastInfo', null, { root: true })
+          }, 3600)
         })
         .catch(error => {
           context.commit('setModalInfo', { isLoading: false })
@@ -75,6 +90,9 @@ export default {
     setModalInfo (state, data) {
       const currentData = { ...state.modalInfo }
       state.modalInfo = Object.assign(currentData, data)
+    },
+    clearModalInfo (state) {
+      state.modalInfo = {}
     },
     setCurrentApp (state, data) {
       state.currentApp = data

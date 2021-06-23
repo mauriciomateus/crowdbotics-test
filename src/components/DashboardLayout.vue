@@ -22,15 +22,20 @@
     <div class="p-4">
       <slot />
     </div>
+    <Toast />
   </div>
 </template>
 
 <script>
 // @vue/component
 import { createNamespacedHelpers } from 'vuex'
+import Toast from './Toast'
 const { mapActions } = createNamespacedHelpers('auth')
 
 export default {
+  components: {
+    Toast
+  },
   methods: {
     ...mapActions(['logOut'])
   }
