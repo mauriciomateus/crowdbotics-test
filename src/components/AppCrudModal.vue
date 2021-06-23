@@ -62,6 +62,7 @@
 // @vue/component
 import FormField from './FormField'
 import { createNamespacedHelpers } from 'vuex'
+import store from './../store/store'
 
 import ModalCloseButton from './ModalCloseButton'
 import { setFormField } from '../helpers'
@@ -79,11 +80,6 @@ export default {
     FrameworkPicker
   },
   props: {
-    formAction: {
-      type: String,
-      default: String,
-      required: true
-    },
     disableFormFields: {
       type: Boolean,
       default: false
@@ -102,7 +98,7 @@ export default {
       return this.modal.isOpen
     },
     appFormBeingSent () {
-      return this.appFormSending
+      return this.modal.isLoading
     },
     currentApp () {
       return this.getCurrentApp
@@ -131,12 +127,14 @@ export default {
   },
   methods: {
     ...mapActions(['createApp']),
-    ...mapMutations(['setModalInfo', 'setFormField']),
+    ...mapMutations(['setModalInfo', 'setFormField', 'clearCurrentApp']),
     handleForm () {
-      this.createApp()
+      store.dispatch('apps/' + this.modal.modalCrudAction, this.currentApp.id)
+      // this.createApp()
     },
     closeModal () {
       this.setModalInfo({ isOpen: false })
+      this.clearCurrentApp()
     },
     closeModalOnEscapeKey () {
       window.addEventListener('keydown', (event) => {

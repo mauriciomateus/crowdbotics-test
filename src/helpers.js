@@ -30,10 +30,3 @@ export function setFormErrors (state, errors) {
 export function resetFormErrors (state, errors) {
   state.formErrors = { errors }
 }
-
-export function formIsSending (state) {
-  state.sending = true
-}
-export function formIsNotSending (state) {
-  state.sending = false
-}

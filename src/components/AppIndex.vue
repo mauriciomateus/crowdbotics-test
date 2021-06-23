@@ -11,6 +11,7 @@
             modal-title="Create app"
             submit-button-text="Create App"
             modal-action-type="info"
+            modal-crud-action="createApp"
           >
             <i class="fas fa-plus text-white" />
           </ModalLauncher>
@@ -64,6 +65,7 @@
                   modal-title="Are you sure you want to delete this app?"
                   modal-title-classes="text-red-500"
                   modal-action-type="danger"
+                  modal-crud-action="deleteApp"
                   :app="app"
                   submit-button-text="Delete App"
                   :disable-form-fields="true"

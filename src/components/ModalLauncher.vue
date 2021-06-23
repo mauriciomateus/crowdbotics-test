@@ -31,6 +31,10 @@ export default {
       type: String,
       default: String
     },
+    modalCrudAction: {
+      type: String,
+      default: String
+    },
     app: {
       type: Object,
       default: Object
@@ -58,7 +62,8 @@ export default {
         titleClasses: this.modalTitleClasses,
         submitButtonText: this.submitButtonText,
         disableFormFields: this.disableFormFields,
-        modalActionType: this.modalActionType
+        modalActionType: this.modalActionType,
+        modalCrudAction: this.modalCrudAction
       })
       this.setCurrentApp(this.app)
     }

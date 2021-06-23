@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { formIsNotSending, formIsSending, getFormErrors, resetFormErrors, setFormErrors, setFormField } from '../../helpers'
+import { getFormErrors, resetFormErrors, setFormErrors, setFormField } from '../../helpers'
 
 export default {
   namespaced: true,
@@ -18,15 +18,15 @@ export default {
   actions: {
     createApp (context) {
       context.commit('resetFormErrors')
-      context.commit('formIsSending')
+      context.commit('setModalInfo', { isLoading: true })
       axios.post('/api/v1/apps/', context.state.formData)
         .then(response => {
           context.commit('pushAppToIndex', response.data)
-          context.commit('formIsNotSending')
+          context.commit('setModalInfo', { isLoading: false })
         })
         .catch(error => {
           context.commit('setFormErrors', error.response.data)
-          context.commit('formIsNotSending')
+          context.commit('setModalInfo', { isLoading: false })
         })
     },
     fetchAppIndex (context) {
@@ -39,27 +39,30 @@ export default {
         })
     },
     deleteApp (context, id) {
+      context.commit('setModalInfo', { isLoading: true })
       axios.delete(`/api/v1/apps/${id}`)
         .then(response => {
           context.commit('deleteApp', id)
+          context.commit('setModalInfo', { isLoading: false })
         })
-        .catch(error => console.log(error.response.data))
+        .catch(error => {
+          context.commit('setModalInfo', { isLoading: false })
+          console.log(error.response.data)
+        })
     }
   },
   mutations: {
     setFormErrors,
     resetFormErrors,
     setFormField,
-    formIsSending,
-    formIsNotSending,
-    closeCrudAppModal (state) {
-      state.appCrudModalIsOpen = false
-    },
     setAppIndex (state, payload) {
       state.apps = payload
     },
     pushAppToIndex (state, app) {
       state.apps.push(app)
+    },
+    clearCurrentApp (state) {
+      state.currentApp = {}
     },
     deleteApp (state, id) {
       const { apps } = state
