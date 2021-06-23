@@ -35,7 +35,7 @@
           :default-value="currentApp.framework"
           :disabled="modal.disableFormFields"
         />
-        <div>
+        <div class="flex space-x-4">
           <button
             type="submit"
             class="uppercase py-3 px-20 rounded-3xl font-bold mt-4 focus:outline-none focus:ring-4 focus:ring-green-200 flex items-center disabled:opacity-50 disabled:cursor-not-allowed"
@@ -48,6 +48,10 @@
               class="fas fa-spinner mr-1 animate animate-spin ml-3 flex w-8 h-8 justify-center items-center absolute text-4xl"
             />
           </button>
+
+          <ModalCloseButton
+            content-type="text"
+          />
         </div>
       </form>
     </div>
