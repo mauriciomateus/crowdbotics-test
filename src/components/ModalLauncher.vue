@@ -2,7 +2,7 @@
   <button
     type="button"
     :class="buttonCssClasses"
-    @click="openModal"
+    @click="handleClick"
   >
     <slot />
   </button>
@@ -26,6 +26,10 @@ export default {
     modalTitleClasses: {
       type: String,
       default: String
+    },
+    app: {
+      type: Object,
+      default: Object
     }
   },
   computed: {
@@ -34,13 +38,14 @@ export default {
     }
   },
   methods: {
-    ...mapMutations(['setModalInfo']),
-    openModal () {
+    ...mapMutations(['setModalInfo', 'setCurrentApp']),
+    handleClick () {
       this.setModalInfo({
         isOpen: true,
         title: this.modalTitle,
         titleClasses: this.modalTitleClasses
       })
+      this.setCurrentApp(this.app)
     }
   }
 }

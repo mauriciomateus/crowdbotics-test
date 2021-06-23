@@ -61,6 +61,7 @@
                   css-classes=" border-brand-color bg-red-500"
                   modal-title="Are you sure you want to delete this app?"
                   modal-title-classes="text-red-500"
+                  :app="app"
                 >
                   <i class="fas fa-minus text-white" />
                 </ModalLauncher>

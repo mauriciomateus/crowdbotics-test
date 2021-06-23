@@ -12,7 +12,8 @@ export default {
     modalInfo: {
       isOpen: false,
       title: null
-    }
+    },
+    currentApp: {}
   },
   actions: {
     createApp (context) {
@@ -71,6 +72,9 @@ export default {
     setModalInfo (state, data) {
       const currentData = { ...state.modalInfo }
       state.modalInfo = Object.assign(currentData, data)
+    },
+    setCurrentApp (state, data) {
+      state.currentApp = data
     }
   },
   getters: {
