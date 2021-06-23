@@ -9,8 +9,9 @@
       v-model="fieldValue"
       :type="fieldType"
       :name="fieldName"
-      class="w-full rounded-lg border-gray-500 mt-2"
+      class="w-full rounded-lg border-gray-500 mt-2 disabled:cursor-not-allowed"
       :placeholder="fieldLabel"
+      :disabled="disabled"
       @input="updateFormData"
     >
     <ValidationError
@@ -44,6 +45,10 @@ export default {
     formModuleName: {
       type: String,
       default: String
+    },
+    disabled: {
+      type: Boolean,
+      default: false
     },
     defaultValue: {
       type: String,

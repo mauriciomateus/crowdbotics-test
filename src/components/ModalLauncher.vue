@@ -30,6 +30,14 @@ export default {
     app: {
       type: Object,
       default: Object
+    },
+    disableFormFields: {
+      type: Boolean,
+      default: false
+    },
+    submitButtonText: {
+      type: String,
+      default: 'Submit'
     }
   },
   computed: {
@@ -43,7 +51,9 @@ export default {
       this.setModalInfo({
         isOpen: true,
         title: this.modalTitle,
-        titleClasses: this.modalTitleClasses
+        titleClasses: this.modalTitleClasses,
+        submitButtonText: this.submitButtonText,
+        disableFormFields: this.disableFormFields
       })
       this.setCurrentApp(this.app)
     }

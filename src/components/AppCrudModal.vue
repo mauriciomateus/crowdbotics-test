@@ -20,6 +20,7 @@
           field-label="App Name *"
           field-name="name"
           :default-value="currentApp.name"
+          :disabled="modal.disableFormFields"
         />
         <AppTypePicker
           default-value="defaultvaluetest"
@@ -38,7 +39,7 @@
             class="uppercase py-3 px-20 bg-brand-bg text-white rounded-3xl font-bold mt-4 focus:outline-none focus:ring-4 focus:ring-green-200 flex items-center disabled:opacity-50 disabled:cursor-not-allowed"
             :disabled="appFormBeingSent"
           >
-            Create App
+            {{ modal.submitButtonText }}
             <i
               v-if="appFormBeingSent"
               class="fas fa-spinner mr-1 animate animate-spin ml-3 flex w-8 h-8 justify-center items-center absolute text-4xl"
@@ -71,6 +72,15 @@ export default {
     FrameworkPicker
   },
   props: {
+    formAction: {
+      type: String,
+      default: String,
+      required: true
+    },
+    disableFormFields: {
+      type: Boolean,
+      default: false
+    }
   },
   data () {
     return {
@@ -89,11 +99,17 @@ export default {
     },
     currentApp () {
       return this.getCurrentApp
+    },
+    modalInfo () {
+      return this.modal
     }
   },
   created () {
     this.modal_is_visible = true
     this.closeModalOnEscapeKey()
+  },
+  mounted () {
+    console.log('modal info', this.modalInfo)
   },
   methods: {
     ...mapActions(['createApp']),

@@ -9,6 +9,7 @@
           <ModalLauncher
             css-classes=" border-brand-color bg-gray-400 text-white"
             modal-title="Create app"
+            submit-button-text="Create App"
           >
             <i class="fas fa-plus text-white" />
           </ModalLauncher>
@@ -62,6 +63,8 @@
                   modal-title="Are you sure you want to delete this app?"
                   modal-title-classes="text-red-500"
                   :app="app"
+                  submit-button-text="Delete App"
+                  :disable-form-fields="true"
                 >
                   <i class="fas fa-minus text-white" />
                 </ModalLauncher>
