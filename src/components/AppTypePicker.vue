@@ -7,8 +7,9 @@
     <div class="flex space-x-4 mt-3">
       <button
         type="button"
-        class="outline-none focus:outline-none focus:ring-4 focus:ring-green-200 p-1 rounded-md flex justify-center items-center border-3 bg-gray-400"
+        class="outline-none focus:outline-none focus:ring-4 focus:ring-green-200 p-1 rounded-md flex justify-center items-center border-3 bg-gray-400 disabled:cursor-not-allowed disabled:opacity-70"
         :class="buttonClass('Web')"
+        :disabled="disabled"
         @click="setAppType('Web')"
       >
         <svg
@@ -28,8 +29,9 @@
 
       <button
         type="button"
-        class="outline-none focus:outline-none focus:ring-4 focus:ring-green-200 p-1 rounded-md flex justify-center items-center border-3 bg-gray-400"
+        class="outline-none focus:outline-none focus:ring-4 focus:ring-green-200 p-1 rounded-md flex justify-center items-center border-3 bg-gray-400 disabled:cursor-not-allowed disabled:opacity-70"
         :class="buttonClass('Mobile')"
+        :disabled="disabled"
         @click="setAppType('Mobile')"
       >
         <svg
@@ -53,6 +55,7 @@
         error-field-name="type"
       />
     </div>
+    {{ defaultValue }}
   </div>
 </template>
 
@@ -69,6 +72,10 @@ export default {
     defaultValue: {
       type: String,
       default: String
+    },
+    disabled: {
+      type: Boolean,
+      default: false
     }
   },
   data () {
@@ -89,7 +96,7 @@ export default {
       const activeClasses = 'bg-green-500 text-white ring-4 ring-red-200'
       const inactiveClasses = 'bg-gray-500 text-white'
       const sharedClasses = 'outline-none p-1 rounded-md flex justify-center items-center border-3'
-      if (this.app_type === type) {
+      if (this.app_type === type || type === this.defaultValue) {
         return `${sharedClasses} ${activeClasses}`
       }
       return `${sharedClasses} ${inactiveClasses}`

@@ -23,7 +23,8 @@
           :disabled="modal.disableFormFields"
         />
         <AppTypePicker
-          default-value="defaultvaluetest"
+          :default-value="currentApp.type"
+          :disabled="modal.disableFormFields"
         />
         <!--        <FormField-->
         <!--          form-module-name="apps"-->
@@ -31,12 +32,14 @@
         <!--          field-name="type"-->
         <!--        />-->
         <FrameworkPicker
-          default-value="defaultvaluetest"
+          :default-value="currentApp.framework"
+          :disabled="modal.disableFormFields"
         />
         <div>
           <button
             type="submit"
-            class="uppercase py-3 px-20 bg-brand-bg text-white rounded-3xl font-bold mt-4 focus:outline-none focus:ring-4 focus:ring-green-200 flex items-center disabled:opacity-50 disabled:cursor-not-allowed"
+            class="uppercase py-3 px-20 rounded-3xl font-bold mt-4 focus:outline-none focus:ring-4 focus:ring-green-200 flex items-center disabled:opacity-50 disabled:cursor-not-allowed"
+            :class="buttonClasses"
             :disabled="appFormBeingSent"
           >
             {{ modal.submitButtonText }}
@@ -102,6 +105,17 @@ export default {
     },
     modalInfo () {
       return this.modal
+    },
+    buttonClasses () {
+      let buttonClasses
+      switch (this.modalInfo.modalActionType) {
+        case 'danger':
+          buttonClasses = 'bg-red-700 text-white'
+          break
+        default:
+          buttonClasses = 'bg-brand-bg text-white'
+      }
+      return buttonClasses
     }
   },
   created () {

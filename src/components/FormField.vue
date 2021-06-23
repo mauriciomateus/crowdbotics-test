@@ -9,7 +9,7 @@
       v-model="fieldValue"
       :type="fieldType"
       :name="fieldName"
-      class="w-full rounded-lg border-gray-500 mt-2 disabled:cursor-not-allowed"
+      class="w-full rounded-lg border-gray-500 mt-2 disabled:cursor-not-allowed disabled:opacity-70"
       :placeholder="fieldLabel"
       :disabled="disabled"
       @input="updateFormData"

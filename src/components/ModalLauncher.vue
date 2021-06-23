@@ -27,6 +27,10 @@ export default {
       type: String,
       default: String
     },
+    modalActionType: {
+      type: String,
+      default: String
+    },
     app: {
       type: Object,
       default: Object
@@ -53,7 +57,8 @@ export default {
         title: this.modalTitle,
         titleClasses: this.modalTitleClasses,
         submitButtonText: this.submitButtonText,
-        disableFormFields: this.disableFormFields
+        disableFormFields: this.disableFormFields,
+        modalActionType: this.modalActionType
       })
       this.setCurrentApp(this.app)
     }
