@@ -66,7 +66,7 @@ export default {
               setTimeout(function () {
                 router.push({ name: 'Login' })
                 context.commit('clearSuccessfulRegistration')
-                context.commit('setFormIsSendingStatus', true)
+                context.commit('setFormIsSendingStatus', false)
               }, 3000)
             })
         })
@@ -109,7 +109,7 @@ export default {
 
       axios.post('/rest-auth/password/reset/', context.state.formData)
         .then(response => {
-          context.commit('setFormIsSendingStatus', true)
+          context.commit('setFormIsSendingStatus', false)
           context.dispatch('clearFormErrors')
           router.push({ name: 'PasswordResetMessage' })
         })
@@ -153,6 +153,7 @@ export default {
     },
     setSuccessfulRegistration (state) {
       state.successfulRegistration = true
+      state.sending = false
     },
     clearSuccessfulRegistration (state) {
       state.successfulRegistration = false

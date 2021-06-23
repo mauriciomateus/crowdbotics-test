@@ -22,12 +22,17 @@ export default {
       axios.post('/api/v1/apps/', context.state.formData)
         .then(response => {
           context.commit('pushAppToIndex', response.data)
-          context.commit('setModalInfo', { isLoading: false })
           context.commit('toast/setToastInfo', {
             type: 'success',
             title: 'success!',
             message: 'App created successfully'
           }, { root: true })
+          setTimeout(() => {
+            context.commit('clearModalInfo')
+          }, 1800)
+          setTimeout(() => {
+            context.commit('toast/clearToastInfo', null, { root: true })
+          }, 3600)
         })
         .catch(error => {
           context.commit('setFormErrors', error.response.data)
