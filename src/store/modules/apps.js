@@ -90,6 +90,9 @@ export default {
     },
     getModalInfo (state) {
       return state.modalInfo
+    },
+    getCurrentApp (state) {
+      return state.currentApp
     }
   },
   modules: {

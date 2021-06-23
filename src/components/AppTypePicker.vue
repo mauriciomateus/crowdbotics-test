@@ -65,6 +65,12 @@ export default {
   components: {
     ValidationError
   },
+  props: {
+    defaultValue: {
+      type: String,
+      default: String
+    }
+  },
   data () {
     return {
       app_type: ''

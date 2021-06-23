@@ -19,14 +19,19 @@
           form-module-name="apps"
           field-label="App Name *"
           field-name="name"
+          :default-value="currentApp.name"
         />
-        <AppTypePicker />
+        <AppTypePicker
+          default-value="defaultvaluetest"
+        />
         <!--        <FormField-->
         <!--          form-module-name="apps"-->
         <!--          field-label="Type *"-->
         <!--          field-name="type"-->
         <!--        />-->
-        <FrameworkPicker />
+        <FrameworkPicker
+          default-value="defaultvaluetest"
+        />
         <div>
           <button
             type="submit"
@@ -74,13 +79,16 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(['appFormSending']),
+    ...mapGetters(['appFormSending', 'getCurrentApp']),
     ...mapGetters({ modal: 'getModalInfo' }),
     modalIsOpen () {
       return this.modal.isOpen
     },
     appFormBeingSent () {
       return this.appFormSending
+    },
+    currentApp () {
+      return this.getCurrentApp
     }
   },
   created () {

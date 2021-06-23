@@ -45,7 +45,7 @@ export default {
       type: String,
       default: String
     },
-    fieldDefaultValue: {
+    defaultValue: {
       type: String,
       default: String
     }
@@ -56,6 +56,9 @@ export default {
     }
   },
   computed: {
+  },
+  mounted () {
+    this.fieldValue = this.defaultValue
   },
   methods: {
     updateFormData () {
